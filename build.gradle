@@ -1,0 +1,36 @@
+apply plugin: 'maven'
+
+artifacts {
+    archives file('./libs/flutter-release.aar')
+    // archives file: new File('./libs/flutter-release.aar'), name: 'flutter-release', type: 'aar'
+    // archives file: new File('./libs/tencentliteavsdk.aar'), name: 'tencentliteavsdk', type: 'jar'
+
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: MAVEN_URL) {
+                authentication(userName: MAVEN_ACCOUNT_NAME, password: MAVEN_ACCOUNT_PWD)
+            }
+
+            snapshotRepository(url: MAVEN_URL_SNAPSHOT) {
+                authentication(userName: MAVEN_ACCOUNT_NAME, password: MAVEN_ACCOUNT_PWD)
+            }
+
+            pom.groupId = 'com.kidswant'
+            pom.artifactId = 'kwmoduletest'
+            pom.version = '0.0.1-SNAPSHOT'
+
+            pom.project {
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
+        }
+    }
+}
+
